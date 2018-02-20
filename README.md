@@ -13,3 +13,5 @@ File di configurazione delle credenziali _Config_, come dizionario
 ```
 Config=dict(PGSQL_USER=<_utente_>,PGSQL_PASSWORD=<_password_>,PGSQL_IP=<indirizzo server>,PGSQL_DBNAME=<nome del db>,FTP_USER=<utente ftp>,FTP_PASSWORD=<password>,FTP_SERVER=<server ftp>)
 ```
+
+**NOTA**: Il file Config.py va tenuto in gitignore
