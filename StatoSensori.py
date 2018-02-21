@@ -70,6 +70,7 @@ url='http://10.10.0.15:9099'
 #selezione df_sensori
 Query='Select *  from "dati_di_base"."anagraficasensori" where "anagraficasensori"."idrete" in (1,4) and "anagraficasensori"."datafine" is NULL;'
 engine = create_engine('postgresql+pg8000://'+PGSQL_USER+':'+PGSQL_PASSWORD+'@'+PGSQL_IP+'/'+PGSQL_DBNAME)
+#engine = create_engine('postgresql://'+PGSQL_USER+':'+PGSQL_PASSWORD+'@'+PGSQL_IP+'/'+PGSQL_DBNAME)
 conn=engine.connect()
 df_sensori=pd.read_sql(Query, conn)
 
@@ -160,7 +161,7 @@ for id in df_sensori.idsensore:
                     err_radio=ricercaFTP(directory_radio)
                 else:
                     #la cartella c'è ma il dato è antecedente a data inizio
-                    datapacket=datainizio+dt.timedelta(seconds=err_radio)
+                    datapacket=datainizio+dt.timedelta(seconds=err)
                     errori.descrizione.loc[N]=errori.descrizione.loc[N]+ " & GPRS "+datapacket.strftime("%H:%M")
                     errori.codice.loc[N]=1
                     #vado comunque a vedere la radio
