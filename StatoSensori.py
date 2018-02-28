@@ -98,6 +98,7 @@ nfile=0
 errori=pd.DataFrame(columns=['idstazione','idsensore','codice','descrizione','data_e_ora'])
 #cambio la tipologia della colonna descrizione in stringa
 errori.descrizione.astype('str')
+errori.data_e_ora.astype('datetime64')
 
 # strutturo la richiesta
 frame_dati={}
