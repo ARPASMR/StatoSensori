@@ -15,3 +15,9 @@ Config=dict(PGSQL_USER=<_utente_>,PGSQL_PASSWORD=<_password_>,PGSQL_IP=<indirizz
 ```
 
 **NOTA**: Il file Config.py va tenuto in gitignore
+
+# Esecuzione nel container
+```
+docker run -it --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp arpasmr/python_base python StatoSensori.py
+
+```
