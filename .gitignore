@@ -1,3 +1,5 @@
 #file per ignorare esplicitamente la configurazione
 Config.*
 miaprovasensori.txt
+test.py
+README.md
