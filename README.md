@@ -21,3 +21,14 @@ Config=dict(PGSQL_USER=<_utente_>,PGSQL_PASSWORD=<_password_>,PGSQL_IP=<indirizz
 docker run -it --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp arpasmr/python_base python StatoSensori.py
 
 ```
+# Branch
+**master**
+**env**
+
+Il branch _env_ ha le variabili di accesso al dB e al FTP definite da apposite variabili di ambiente: è quindi utilizzabile come microservizio nel container passando le variabili corrette, al posto di averle scritte nel file _Config.py_
+
+Per usarlo con arpasmr/python_base si può usare la sintassi
+```
+docker run -it --rm -e "PGSQL_USER=<nome utente>" -e "PGSQL_PASSWORD=<password utente>" -e "PGSQL_IP=<IP database>" -e "PGSQL_DBNAME=<nome database>" -e "FTP_USER=<utente ftp>" -e "FTP_PASSWORD=<password ftp>" -e "FTP_SERVER=<server ftp (es. arpalombardia>" -v "$PWD":/usr/src/myapp -w /usr/src/myapp arpasmr/python_base python StatoSensori.py
+
+```
