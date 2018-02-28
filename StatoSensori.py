@@ -95,7 +95,7 @@ df_dati=pd.read_sql(QueryJoin, conn)
 manca=0
 ce=0
 nfile=0
-errori=pd.DataFrame(columns=['idstazione','idsensore','codice','descrizione'])
+errori=pd.DataFrame(columns=['idstazione','idsensore','codice','descrizione','data_e_ora'])
 #cambio la tipologia della colonna descrizione in stringa
 errori.descrizione.astype('str')
 
