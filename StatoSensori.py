@@ -63,15 +63,15 @@ def ricercaFTP(directory):
 datafine=dt.datetime.now()
 datainizio=datafine-dt.timedelta(hours=1)
 
-#importazione credenziali
-import Config
-PGSQL_IP=Config.Config['PGSQL_IP']
-PGSQL_USER=Config.Config['PGSQL_USER']
-PGSQL_DBNAME=Config.Config['PGSQL_DBNAME']
-PGSQL_PASSWORD=Config.Config['PGSQL_PASSWORD']
-FTP_SERVER=Config.Config['FTP_SERVER']
-FTP_USER=Config.Config['FTP_USER']
-FTP_PASSWORD=Config.Config['FTP_PASSWORD']
+#lettura credenziali da variabili ambiente
+import os
+PGSQL_IP=os.environ('PGSQL_IP')
+PGSQL_USER=os.environ('PGSQL_USER')
+PGSQL_DBNAME=os.environ('PGSQL_DBNAME')
+PGSQL_PASSWORD=os.environ('PGSQL_PASSWORD')
+FTP_SERVER=os.environ('FTP_SERVER')
+FTP_USER=os.environ('FTP_USER')
+FTP_PASSWORD=os.environ('FTP_PASSWORD')
 
 
 # webservice remwsgwyd
@@ -98,7 +98,7 @@ nfile=0
 errori=pd.DataFrame(columns=['idstazione','idsensore','codice','descrizione','data_e_ora'])
 #cambio la tipologia della colonna descrizione in stringa
 errori.descrizione.astype('str')
-errori.data_e_ora.astype('datetime64')
+errori.data_e_ora.astype('datetime64[ns]')
 
 # strutturo la richiesta
 frame_dati={}
@@ -120,7 +120,7 @@ for id in df_sensori.idsensore:
         stazione=df_sensori[df_sensori.idsensore==id].idstazione.item()
         N+=1
         N=len(errori)
-        errori.loc[N]=[stazione,id,1,'no IRIS']
+        errori.loc[N]=[stazione,id,1,'no IRIS',dt.datetime.now().strftime("%Y-%m-%d %H:%M")]
         frame_dati["sensor_id"]=id
         tipo=df_sensori[df_sensori.idsensore==id].nometipologia.item()
     # per pluviometri e nivometri l'operatore è la cumulata
