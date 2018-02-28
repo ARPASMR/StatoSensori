@@ -65,13 +65,13 @@ datainizio=datafine-dt.timedelta(hours=1)
 
 #lettura credenziali da variabili ambiente
 import os
-PGSQL_IP=os.environ('PGSQL_IP')
-PGSQL_USER=os.environ('PGSQL_USER')
-PGSQL_DBNAME=os.environ('PGSQL_DBNAME')
-PGSQL_PASSWORD=os.environ('PGSQL_PASSWORD')
-FTP_SERVER=os.environ('FTP_SERVER')
-FTP_USER=os.environ('FTP_USER')
-FTP_PASSWORD=os.environ('FTP_PASSWORD')
+PGSQL_IP=os.environ['PGSQL_IP']
+PGSQL_USER=os.environ['PGSQL_USER']
+PGSQL_DBNAME=os.environ['PGSQL_DBNAME']
+PGSQL_PASSWORD=os.environ['PGSQL_PASSWORD']
+FTP_SERVER=os.environ['FTP_SERVER']
+FTP_USER=os.environ['FTP_USER']
+FTP_PASSWORD=os.environ['FTP_PASSWORD']
 
 
 # webservice remwsgwyd
