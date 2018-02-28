@@ -120,7 +120,7 @@ for id in df_sensori.idsensore:
         stazione=df_sensori[df_sensori.idsensore==id].idstazione.item()
         N+=1
         N=len(errori)
-        errori.loc[N]=[stazione,id,1,'no IRIS']
+        errori.loc[N]=[stazione,id,1,'no IRIS',dt.datetime.now().strftime("%Y-%m-%d %H:%M")]
         frame_dati["sensor_id"]=id
         tipo=df_sensori[df_sensori.idsensore==id].nometipologia.item()
     # per pluviometri e nivometri l'operatore è la cumulata
