@@ -1,3 +1,14 @@
+#!bin/python
+# -----------------------------------------------------------------------------
+# STATOSENSORI
+# -----------------------------------------------------------------------------
+# verifica della presenza dei dati nei vari punti del percorso di acquisizione
+# i. nel database IRIS
+# ii. nel REMWS
+# iii. sul sito FTP (per i sensori CAE)
+# le informazioni sulla presenza dei dati sono archiviati nella tabella errori_sensori
+# il programma è pensato per funzionare in contunuo, eventualmente lanciato da
+# un file shell dentro un container
 # FASE 1
 #inizializzazione
 import os
@@ -194,3 +205,12 @@ print("STATOSENSORI: Dati non presenti solo su IRIS ma disponibili su REMWS o in
 print("STATOSENSORI: Dati non presenti neanche nel REMWS ma disponibili su FTP:", errori[errori.codice==2].codice.count())
 #scrittura su file
 errori.to_csv("miaprovastatosensori.txt")
+# scrittura nel db
+statement='delete from realtime.errori_sensori'
+engine.execute(statement)
+for i in range(0,N):
+    statement='INSERT into realtime.errori_sensori ("idstazione","idsensore","codice","descrizione","data_e_ora") VALUES ('+\
+    str(errori.idstazione[i])+','+str(errori.idsensore[i])+','+str(errori.codice[i])+\
+    ',\''+errori.descrizione[i]+'\',\''+errori.data_e_ora[i]+'\')'
+    engine.execute(statement)
+# fine esecuzione
