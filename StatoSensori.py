@@ -207,9 +207,10 @@ for id in df_sensori.idsensore:
 #print("..............+++++++++.............++++++++++++.............................++++++++......")
 #print("Elaborazione terminata.")
 print ("STATOSENSORI: Data di inizio",datainizio.strftime("%Y-%m-%d %H:%M"),"mancano ",manca, "e ci sono ", ce, "su ",manca+ce)
-print ("STATOSENSORI: Errori gravi:", errori[errori.codice==3])
-print("STATOSENSORI: Dati non presenti solo su IRIS ma disponibili su REMWS o in FTP:",errori[errori.codice==1].codice.count())
-print("STATOSENSORI: Dati non presenti neanche nel REMWS ma disponibili su FTP:", errori[errori.codice==2].codice.count())
+if (DEBUG):
+    print ("STATOSENSORI: Errori gravi:", errori[errori.codice==3])
+    print("STATOSENSORI: Dati non presenti solo su IRIS ma disponibili su REMWS o in FTP:",errori[errori.codice==1].codice.count())
+    print("STATOSENSORI: Dati non presenti neanche nel REMWS ma disponibili su FTP:", errori[errori.codice==2].codice.count())
 # scrittura nel db
 statement='delete from realtime.errori_sensori'
 engine.execute(statement)
