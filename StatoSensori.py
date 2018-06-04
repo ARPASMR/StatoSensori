@@ -14,7 +14,6 @@
 #inizializzazione
 import os
 import pandas as pd
-import numpy as np
 from sqlalchemy import *
 import datetime as dt
 import json as js
@@ -61,11 +60,11 @@ def ricercaFTP(directory):
     return errore
 
 # inizializzazioni
-datafine=dt.datetime.now()
+datafine=dt.datetime.utcnow()+dt.timedelta(hours=1)
 datainizio=datafine-dt.timedelta(hours=1)
 
 #lettura credenziali da variabili ambiente
-import os
+
 PGSQL_IP=os.environ['PGSQL_IP']
 PGSQL_USER=os.environ['PGSQL_USER']
 PGSQL_DBNAME=os.environ['PGSQL_DBNAME']
@@ -73,8 +72,9 @@ PGSQL_PASSWORD=os.environ['PGSQL_PASSWORD']
 FTP_SERVER=os.environ['FTP_SERVER']
 FTP_USER=os.environ['FTP_USER']
 FTP_PASSWORD=os.environ['FTP_PASSWORD']
-
-
+DEBUG=os.environ['DEBUG']
+if (DEBUG):
+    print("STATOSENSORI: DEBUG attivato")
 # webservice remwsgwyd
 url='http://10.10.0.15:9099'
 
@@ -198,7 +198,8 @@ for id in df_sensori.idsensore:
                     errori.codice.loc[N]=1
                 else:
                     # tutto a posto, c'è almeno un pacchetto dopo datainizio
-                    # print("===========___________===========_____________================____________",end="\b\r")
+                    if(DEBUG):
+                        print("===========___________===========_____________================____________",end="\b\r")
     else:
 
     #    print ("sensore ",id, "OK!")
