@@ -9,15 +9,22 @@ A seconda della situazione che trova per ogni sensore codifica un errore di grav
 # Requisiti
 Python 3.x
 
-File di configurazione delle credenziali _Config_, come dizionario
+File di configurazione delle credenziali _Config.sh_,
 ```
-Config=dict(PGSQL_USER=<_utente_>,PGSQL_PASSWORD=<_password_>,PGSQL_IP=<indirizzo server>,PGSQL_DBNAME=<nome del db>,FTP_USER=<utente ftp>,FTP_PASSWORD=<password>,FTP_SERVER=<server ftp>)
+export PGSQL_USER=<pgsql user>
+export PGSQL_PASSWORD=<pgsql password>
+export PGSQL_IP=<pgsql ip host>
+export PGSQL_DBNAME=<pgsql db name>
+export FTP_USER=<ftp user>
+export FTP_PASSWORD=<ftp password>
+export FTP_SERVER=<ftp.server.address>
+
 ```
 
-**NOTA**: Il file Config.py va tenuto in gitignore
+**NOTA**: Il file Config.sh va tenuto in gitignore
 
 # Esecuzione nel container
 ```
-docker run -it --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp arpasmr/python_base python StatoSensori.py
+docker run -it --rm arpasmr/python_base ./launch.sh
 
 ```
