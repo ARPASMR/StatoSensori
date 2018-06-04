@@ -25,6 +25,10 @@ export FTP_SERVER=<ftp.server.address>
 
 # Esecuzione nel container
 ```
-docker run -it --rm arpasmr/python_base ./launch.sh
+docker run -it --rm -e "DEBUG=False" arpasmr/python_base ./launch.sh
 
 ```
+la variabile di ambiente DEBUG controlla la prolissità dei messaggi. Con _False_ vengono minimizzate le scritture
+
+# Risultato
+Nella tabella _realtime.errori_sensori_ vengono memorizzati i valori dell'ultimo run dello script. Vengono mantenuti solo gli ultimi, i precedenti sono cancellati definitivamente.
