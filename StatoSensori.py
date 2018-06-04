@@ -1,4 +1,5 @@
 #!bin/python
+# coding=UTF8
 # -----------------------------------------------------------------------------
 # STATOSENSORI
 # -----------------------------------------------------------------------------
@@ -109,10 +110,13 @@ frame_dati["granularity"]=1 # chiedo solo i 10 minuti
 frame_dati["start"]=datainizio.strftime("%Y-%m-%d %H:%M")
 frame_dati["finish"]=datafine.strftime("%Y-%m-%d %H:%M")
 
+#prima del ciclo dovrei verificare che il remws gateway funzioni: altrimenti lo segnalo ed esco (sic?)
+
 # ciclo sui sensori
 N=-1
 for id in df_sensori.idsensore:
-    print ("Data di inizio",datainizio.strftime("%Y-%m-%d %H:%M"),"mancano ",manca, "e ci sono ", ce, "su ",manca+ce, "--->Errori gravi", errori[errori.codice==3].codice.count(),end="\r")
+    if (DEBUG):
+        print ("Data di inizio",datainizio.strftime("%Y-%m-%d %H:%M"),"mancano ",manca, "e ci sono ", ce, "su ",manca+ce, "--->Errori gravi", errori[errori.codice==3].codice.count(),end="\r")
     operator_id=1 #resetto ad ogni giro per chiedere ill dato rilevato
 
     # se non ho dati nel dataframe del dB chiedo al REM
@@ -194,19 +198,17 @@ for id in df_sensori.idsensore:
                     errori.codice.loc[N]=1
                 else:
                     # tutto a posto, c'è almeno un pacchetto dopo datainizio
-                    print("===========___________===========_____________================____________",end="\b\r")
+                    # print("===========___________===========_____________================____________",end="\b\r")
     else:
 
     #    print ("sensore ",id, "OK!")
         ce+=1
-print("..............+++++++++.............++++++++++++.............................++++++++......")
-print("Elaborazione terminata.")
+#print("..............+++++++++.............++++++++++++.............................++++++++......")
+#print("Elaborazione terminata.")
 print ("STATOSENSORI: Data di inizio",datainizio.strftime("%Y-%m-%d %H:%M"),"mancano ",manca, "e ci sono ", ce, "su ",manca+ce)
 print ("STATOSENSORI: Errori gravi:", errori[errori.codice==3])
 print("STATOSENSORI: Dati non presenti solo su IRIS ma disponibili su REMWS o in FTP:",errori[errori.codice==1].codice.count())
 print("STATOSENSORI: Dati non presenti neanche nel REMWS ma disponibili su FTP:", errori[errori.codice==2].codice.count())
-#scrittura su file
-errori.to_csv("miaprovastatosensori.txt")
 # scrittura nel db
 statement='delete from realtime.errori_sensori'
 engine.execute(statement)
